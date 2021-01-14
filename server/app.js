@@ -61,5 +61,25 @@ var authRouter = require("./routes/auth");
 app.use("/", indexRouter);
 app.use("/newsPaper/users", usersRouter);
 app.use("/newsPaper/auth", authRouter);
+//Midldeware that handles a ressource that wasn't found
+
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: `The ressource you try to request doesn't exist. Method: ${req.method} path: ${req.originalUrl}`,
+  });
+});
+if (process.env.NODE_ENV === "production") {
+  app.use("*", (req, res, next) => {
+    res.sendFile(__dirname + "/public/index.html");
+  });
+}
+//Midllewares that handles errors, as soon as you pass some data to your next() function
+// ex: next("toto"). you will end up in this middleware function
+
+app.use((error, req, res, next) => {
+  console.log(error);
+  error.status = error.status || 500;
+  res.json(error);
+});
 
 module.exports = app;

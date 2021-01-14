@@ -6,6 +6,11 @@ const userSchema = new Schema({
   password: String,
   firstName: String,
   lastName: String,
+  profileImg: {
+    type: String,
+    default:
+      "https://cdn3.iconfinder.com/data/icons/ballicons-reloaded-free/512/icon-70-512.png",
+  },
 });
 
 const User = mongoose.model("User", userSchema);
