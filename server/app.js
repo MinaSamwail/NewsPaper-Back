@@ -11,9 +11,6 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
 const _DEV_MODE = false;
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-
 var app = express();
 
 app.use(
@@ -56,7 +53,13 @@ if (_DEV_MODE) {
   });
 }
 // Router
+
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+var authRouter = require("./routes/auth");
+
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/newsPaper/users", usersRouter);
+app.use("/newsPaper/auth", authRouter);
 
 module.exports = app;
