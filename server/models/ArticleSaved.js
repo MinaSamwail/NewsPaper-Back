@@ -6,7 +6,8 @@ const ArticleSavedSchema = new Schema({
   title: String,
   image_url: String,
   description: String,
-  llink: String,
+  link: String,
+  author: String,
 });
 const ArticleSaved = mongoose.model("ArticleSaved", ArticleSavedSchema);
 
