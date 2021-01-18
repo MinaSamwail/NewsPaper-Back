@@ -44,7 +44,8 @@ router.post("/signup", (req, res, next) => {
       User.create(newUser)
         .then((newUserDocument) => {
           req.session.currentUser = newUserDocument._id;
-          res.redirect("/api/auth/isLoggedIn");
+          res.sendStatus(200);
+          // res.redirect("/");
         })
         .catch((error) => {
           res.status(500).json(error);
