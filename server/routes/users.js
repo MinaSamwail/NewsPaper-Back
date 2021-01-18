@@ -60,15 +60,20 @@ router.get("/dashboard", async (req, res, next) => {
     console.log("this my data from the article", getTheData.articleId);
 
     let promises = [];
+    let users = [];
 
-    // for (let i = 0; i < getTheData.articleId.length; i++) {
-
-    //   promises.push(
-    //     axios.get(
-    //       `https://api.currentsapi.services/v1/search?keywords=${searchNews}&apiKey=vUAL2v06nYO7IMpRBTeP31MLtxRms900C_Q1CiUo-bWM1st9`
-    //     )
-    //   );
-    // }
+    for (let i = 0; i < getTheData.articleId.length; i++) {
+      promises.push(
+        axios
+          .get(
+            `https://api.currentsapi.services/v1/search?=` +
+              getTheData.articleId[i].articleId
+          )
+          .then((response) => {
+            users.push(response.data.items[0]);
+          })
+      );
+    }
   } catch (error) {
     next(error);
   }
