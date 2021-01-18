@@ -68,7 +68,7 @@ router.get("/isLoggedIn", (req, res, next) => {
     res.status(401).json({ message: "Unauthorized" });
   }
 });
-router.get("/logout", (req, res, next) => {
+router.delete("/logout", (req, res, next) => {
   if (req.session.currentUser) {
     req.session.destroy((err) => {
       if (err) res.status(500).json(err);
