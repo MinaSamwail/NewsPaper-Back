@@ -61,6 +61,7 @@ var authRouter = require("./routes/auth");
 app.use("/", indexRouter);
 app.use("/newsPaper/users", usersRouter);
 app.use("/newsPaper/auth", authRouter);
+
 //Midldeware that handles a ressource that wasn't found
 
 app.use((req, res, next) => {

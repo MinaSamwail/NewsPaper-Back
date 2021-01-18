@@ -40,4 +40,13 @@ router.patch(
     }
   }
 );
+router.patch("/article/:id", async (req, res, next) => {
+  const userId = req.session.currentUser;
+  const articleId = req.params.id;
+  try {
+    await User.findByIdAndUpdate(userId, { $push: { articleId: articleId } });
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
