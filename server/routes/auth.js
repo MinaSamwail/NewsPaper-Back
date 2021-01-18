@@ -23,7 +23,7 @@ router.post("/signin", (req, res, next) => {
       const userObj = userDocument.toObject();
       delete userObj.password;
       res.status(200).json(userObj);
-      res.redirect("/");
+      // res.redirect("/");
     })
     .catch((error) => {
       res.status(500).json(error);
