@@ -23,7 +23,7 @@ router.post("/signin", (req, res, next) => {
       const userObj = userDocument.toObject();
       delete userObj.password;
       res.status(200).json(userObj);
-      res.redirect("/newsPaper/auth/isLoggedIn");
+      res.redirect("/");
     })
     .catch((error) => {
       res.status(500).json(error);
@@ -44,7 +44,7 @@ router.post("/signup", (req, res, next) => {
       User.create(newUser)
         .then((newUserDocument) => {
           req.session.currentUser = newUserDocument._id;
-          res.redirect("/newsPaper/auth/isLoggedIn");
+          res.redirect("/api/auth/isLoggedIn");
         })
         .catch((error) => {
           res.status(500).json(error);
