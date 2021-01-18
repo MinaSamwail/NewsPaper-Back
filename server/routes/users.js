@@ -40,6 +40,7 @@ router.patch(
     }
   }
 );
+
 router.patch("/article/:id", async (req, res, next) => {
   const userId = req.session.currentUser;
   const articleId = req.params.id;
@@ -49,4 +50,28 @@ router.patch("/article/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/dashboard", async (req, res, next) => {
+  const userId = req.session.currentUser;
+  try {
+    const getTheData = await User.findById(userId).populate("articleId");
+
+    console.log("this my data", getTheData);
+    console.log("this my data from the article", getTheData.articleId);
+
+    let promises = [];
+
+    // for (let i = 0; i < getTheData.articleId.length; i++) {
+
+    //   promises.push(
+    //     axios.get(
+    //       `https://api.currentsapi.services/v1/search?keywords=${searchNews}&apiKey=vUAL2v06nYO7IMpRBTeP31MLtxRms900C_Q1CiUo-bWM1st9`
+    //     )
+    //   );
+    // }
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
