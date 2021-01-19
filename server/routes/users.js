@@ -4,6 +4,7 @@ var router = express.Router();
 const requireAuth = require("../middlewares/requireAuth");
 const bcrypt = require("bcrypt");
 const upload = require("../config/coudinary");
+const { response } = require("express");
 
 const salt = 10;
 
@@ -55,32 +56,22 @@ router.patch(`/article`, async (req, res, next) => {
   }
 });
 
-// router.get("/dashboard", async (req, res, next) => {
-//   const userId = req.session.currentUser;
-//   try {
-//     const getTheData = await User.findById(userId).populate("articleId");
-
-//     console.log("this my data", getTheData);
-//     console.log("this my data from the article", getTheData.articleId);
-
-//     let promises = [];
-//     let users = [];
-
-//     for (let i = 0; i < getTheData.articleId.length; i++) {
-//       promises.push(
-//         axios
-//           .get(
-//             `https://api.currentsapi.services/v1/search?=` +
-//               getTheData.articleId[i].articleId
-//           )
-//           .then((response) => {
-//             users.push(response.data.items[0]);
-//           })
-//       );
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+//ICI
+router.get("/dashboard", async (req, res, next) => {
+  const userId = req.session.currentUser;
+  try {
+    await res.json({ test: 123 });
+    // const getTheData = await User.findById(userId).populate("totalarticle");
+    User.find({})
+      .populate("totalarticle[0]")
+      .then((responseFromDb) => {
+        console.log("RESPONSE", responseFromDb);
+        res.status(200).json(responseFromDb);
+      });
+    // console.log("this my data", getTheData);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
