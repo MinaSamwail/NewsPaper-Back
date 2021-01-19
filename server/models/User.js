@@ -11,7 +11,7 @@ const userSchema = new Schema({
     default:
       "https://cdn3.iconfinder.com/data/icons/ballicons-reloaded-free/512/icon-70-512.png",
   },
-  articleId: [String],
+  totalarticle: [Object],
 });
 
 const User = mongoose.model("User", userSchema);

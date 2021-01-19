@@ -41,11 +41,15 @@ router.patch(
   }
 );
 
-router.patch("/article/:id", async (req, res, next) => {
+router.patch(`/article`, async (req, res, next) => {
   const userId = req.session.currentUser;
-  const articleId = req.params.id;
+  const totalarticle = req.body;
+  console.log(req.body);
   try {
-    await User.findByIdAndUpdate(userId, { $push: { articleId: articleId } });
+    const userUpdate = await User.findByIdAndUpdate(userId, {
+      $push: { totalarticle: totalarticle },
+    });
+    res.json(userUpdate);
   } catch (error) {
     next(error);
   }
