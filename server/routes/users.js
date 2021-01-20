@@ -57,7 +57,7 @@ router.patch(`/article`, async (req, res, next) => {
 });
 
 //ICI
-router.get("/dashboard", async (req, res, next) => {
+router.get("/dashboard", requireAuth, async (req, res, next) => {
   const userId = req.session.currentUser;
 
   try {
