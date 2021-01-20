@@ -3,11 +3,7 @@ const Schema = mongoose.Schema;
 
 const ArticleSavedSchema = new Schema({
   UserId: { type: Schema.Types.ObjectId, ref: "User" },
-  title: String,
-  image_url: String,
-  description: String,
-  link: String,
-  author: String,
+  data: {},
 });
 const ArticleSaved = mongoose.model("ArticleSaved", ArticleSavedSchema);
 

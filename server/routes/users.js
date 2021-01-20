@@ -59,16 +59,13 @@ router.patch(`/article`, async (req, res, next) => {
 //ICI
 router.get("/dashboard", async (req, res, next) => {
   const userId = req.session.currentUser;
+
   try {
     // await res.json({ test: 123 });
-    // const getTheData = await User.find({}).populate("totalarticle");
-    await User.find({})
-      .populate("totalarticle")
-      .then((responseFromDb) => {
-        console.log("RESPONSE", responseFromDb);
-        res.status(200).json(responseFromDb);
-      });
+    const user = await User.findById(userId);
+    res.status(200).json(user.totalarticle);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
