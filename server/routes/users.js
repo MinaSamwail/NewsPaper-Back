@@ -70,4 +70,22 @@ router.get("/dashboard", requireAuth, async (req, res, next) => {
   }
 });
 
+router.patch("/dashboard/:id", async (req, res, next) => {
+  const userId = req.session.currentUser;
+  try {
+    const user = await User.findById(userId);
+
+    const userArticle = user.totalarticle;
+
+    userArticle
+      .findByIdAndUpdate(req.body, { new: true })
+      .then((updatedDocument) => {
+        return res.status(200).json(updatedDocument);
+      });
+    // res.status(200).json(user.totalarticle);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
