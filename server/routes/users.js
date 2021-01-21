@@ -70,18 +70,23 @@ router.get("/dashboard", requireAuth, async (req, res, next) => {
   }
 });
 
-router.patch("/dashboard/:id", async (req, res, next) => {
+router.patch("/dashboard", async (req, res, next) => {
   const userId = req.session.currentUser;
+  console.log("REQ", req.body);
   try {
-    const user = await User.findById(userId);
+    // const user = await User.findById(userId);
 
-    const userArticle = user.totalarticle;
+    // const userArticle = user.totalarticle;
 
-    userArticle
-      .findByIdAndUpdate(req.body, { new: true })
-      .then((updatedDocument) => {
-        return res.status(200).json(updatedDocument);
-      });
+    const articleId = req.body.articleId;
+
+    User.findByIdAndUpdate(
+      userId,
+      { $pull: { totalarticle: { id: articleId } } },
+      { new: true }
+    ).then((updatedDocument) => {
+      return res.status(200).json(updatedDocument);
+    });
     // res.status(200).json(user.totalarticle);
   } catch (error) {
     next(error);
